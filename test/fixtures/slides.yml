@@ -1,0 +1,31 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  header: MyText
+  title: MyText
+  subtitle: MyText
+  footer: MyText
+  last_touched: 2011-04-29 23:09:07
+
+two:
+  header: MyText
+  title: MyText
+  subtitle: MyText
+  footer: MyText
+  last_touched: 2011-04-29 23:09:07
+
+# == Schema Information
+#
+# Table name: slides
+#
+#  id           :integer         not null, primary key
+#  header       :string(255)
+#  title        :string(255)
+#  subtitle     :string(255)
+#  footer       :string(255)
+#  last_touched :datetime
+#  created_at   :datetime
+#  updated_at   :datetime
+#  body         :text
+#
+

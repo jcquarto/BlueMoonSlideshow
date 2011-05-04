@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Header:</b>
+  <%= @slide.header %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%= @slide.title %>
+</p>
+
+<p>
+  <b>Subtitle:</b>
+  <%= @slide.subtitle %>
+</p>
+
+<p>
+  <b>Body:</b>
+  <%= @slide.body %>
+</p>
+<p>
+  <b>Footer:</b>
+  <%= @slide.footer %>
+</p>
+
+<p>
+  <b>Last touched:</b>
+  <%= @slide.last_touched %>
+</p>
+
+
+<%= link_to 'Edit', edit_slide_path(@slide) %> |
+<%= link_to 'Back', slides_path %>

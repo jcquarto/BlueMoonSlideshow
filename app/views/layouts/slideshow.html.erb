@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Blue Moon Swing Slideshow</title>
+  <%= stylesheet_link_tag "styles", "slideshow" %>
+  <%= javascript_include_tag :defaults %>
+  <%= csrf_meta_tag %>
+</head>
+<body>
+	<div id="header">coming up:</div>
+	<div id="title">"Sometimes you're the windshield, sometimes you're the bug"</div>
+	<div id="subtitle">Cato McQ</div>
+	<div id="footer">two step, don't forget to go quick, quick, slow, slow and to hold the second sow otherwise you will be too early on all your ensuing steps</div>
+<%= yield %>
+
+<div id="banner" align="center">
+	<span class="BMS">Blue Moon Swing<br/></span>
+	<%= image_tag "blue-moon-wolf-medium.jpg" %>
+</div>
+
+</body>
+</html>

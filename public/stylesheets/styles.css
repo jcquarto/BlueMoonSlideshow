@@ -1,0 +1,10 @@
+.BMS {font-size: 18px; color: #999999;}
+#banner {
+	position: absolute;
+	top:0px;
+	right:0px;
+	text-align:middle;
+
+	width: 200px;
+	height: 175px;
+}

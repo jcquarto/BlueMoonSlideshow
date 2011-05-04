@@ -1,0 +1,50 @@
+<%= form_for(@slide, :remote => true, :html => {:class=>"clearfix"}) do |f| %>
+
+<div class="left">
+  <% if @slide.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@slide.errors.count, "error") %> prohibited this slide from being saved:</h2>
+
+      <ul>
+      <% @slide.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <h1>Slide Manager</h1>
+
+  <div>
+    <%= f.label :header, :class => 'grey' %>
+    <%= f.text_field :header, :class => 'field' %>
+  </div>
+  <div><br/><br/><br/></div>
+  <div>
+    <%= f.label :footer, :class => 'grey' %>
+    <%= f.text_field :footer, :class => 'field' %>
+  </div>
+</div>
+
+<div class="left">
+  <div>
+    <%= f.label :title, :class => 'grey' %>
+    <%= f.text_field :title, :class => 'field' %>
+  </div>
+  <div>
+    <%= f.label :subtitle, :class => 'grey' %>
+    <%= f.text_field :subtitle, :class => 'field' %>
+  </div>
+  <div>
+    <%= f.label :body, :class => 'grey' %>
+    <%= f.text_area :body, :rows => 3, :cols => 30, :class => 'field' %>
+  </div>
+</div>
+
+<div class="left right">
+  <div><br/><br/><br/></div>
+
+	<input type="submit" value="save" class="bt_login"/>
+</div>
+
+<% end %>

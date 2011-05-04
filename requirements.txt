@@ -1,0 +1,37 @@
+Here's what the app should do:
+
+-display a slide
+- after X seconds, transition to next slide
+- only pick from active slides
+
+- admin side: use drag and drop to moves slides to Active /Inactive
+- admin side: flush all the currently active slides
+- admin side: create new slide
+- admin side: revive an inactive slides
+- 
+
+slides have:
+ - header, footer, title, subtitle
+
+songs, a type of slide, have
+ - dance type (in the header)
+ - title (h1)
+ - artist (h2)
+ - optional text (footer)
+
+the collection of currently active slides is called a Playlist
+
+A*
+B
+C
+D
+
+while A is playing, I kill B
+
+A*
+C
+D
+
+
+
+

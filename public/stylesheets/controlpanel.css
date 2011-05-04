@@ -1,0 +1,57 @@
+html, body {border: 0; margin: 0; padding: 0;}
+
+body {
+  	font: 90%/0.9 arial, helvetica, sans-serif;
+	background: #333;
+  	line-height: 130%;
+  	width: 100%;
+  	min-width: 970px;
+  	color: #ccc;
+}
+
+a {
+	color: #5c8500;
+	text-decoration: none;
+}
+
+a:hover {
+	color: yellow;
+}
+
+a img {
+  border: none;/*remove border for linked images*/
+}
+
+h1 {
+	font-size: 1.6em;
+	height: 20px;
+	padding-top: 0;
+}
+
+h2{
+	font-size: 1.2em;
+	height: 20px;
+	padding-top: 0;
+}
+
+.highlight {
+	background-color:#FFaeae;
+	border-bottom:#F30 1px solid;
+	border-top:#F30 1px solid;
+	padding: 4px 10px;
+	color: #333;
+}
+
+/***** Main Layout ****/
+#container {
+  	width: 100%;
+  	height: 100%;
+  	text-align: center;/* IE fix to center the page */
+}
+
+#content {
+  	width: 840px;
+  	margin: 0 auto;/* center the page in Firefox */
+  	text-align: left;
+	padding: 20px;
+}

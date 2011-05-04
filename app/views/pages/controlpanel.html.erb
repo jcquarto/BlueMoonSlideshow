@@ -1,0 +1,110 @@
+<h1>Slideshow Control Panel</h1>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		// Expand Panel
+		$("#open").click(function(){
+			$("div#panel").slideDown("slow");	
+		});	
+
+		// Collapse Panel
+		$("#close").click(function(){
+			$("div#panel").slideUp("slow");	
+		});		
+
+		// Switch buttons from "Log In | Register" to "Close Panel" on click
+		$("#toggle a").click(function () {
+			$("#toggle a").toggle();
+		});		
+
+	});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+	init();
+	
+	function init() {
+		//new_slide();
+		edit_slide(1);
+		
+	}
+
+	function new_slide() {
+		$.get(
+		'/slides/new',
+		function( response ){
+			$('#slide_div').html(response)
+		})
+		
+	}
+	
+	function edit_slide(id) {
+		$.get(
+		'/slides/'+id+'/edit',
+		function( response ){
+			$('#slide_div').html(response)
+		})		
+		
+	}
+});
+
+</script>
+
+	<!-- Login -->
+<div id="toppanel">
+	<div id="panel">
+		<div class="content clearfix" id="slide_div">
+			
+
+		</div>
+	</div> <!-- /login -->	
+
+    <!-- The tab on top -->	
+	<div class="tab">
+
+		<ul class="login">
+	    	<li class="left">&nbsp;</li>
+	        <li>Hello Guest! Cato is a pretty cat</li>
+			<li class="sep">|</li>
+			<li id="toggle">
+				<a id="open" class="open" href="#">Log In | Register</a>
+				<a id="close" style="display: none;" class="close" href="#">Close Panel</a>			
+			</li>
+
+	    	<li class="right">&nbsp;</li>
+		</ul> 
+	</div> <!-- / top -->
+	
+</div> <!--panel -->
+
+    <div id="container">
+		<div id="content" style="padding-top:100px;">
+			<h1>Blue Moon Swing Slideshow Control Panel</h1>
+
+			<h2>I am a H2 header</h2>	
+			<p>Lorem ipsum dolor sit amet, <a href="">consectetuer adipiscing</a> elit. Praesent scelerisque commodo massa. Ut volutpat. Maecenas luctus augue quis velit. Nulla tincidunt pede in erat.</p>
+			
+			<p class="highlight">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Praesent <a href="">scelerisque commodo massa</a>. Ut volutpat. Maecenas luctus augue quis velit. Nulla tincidunt pede in erat.</p>
+			
+			<p> Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Praesent scelerisque commodo massa. Ut volutpat. Maecenas luctus augue quis velit. Nulla tincidunt pede in erat. Vivamus tellus. Maecenas lacinia, arcu sed scelerisque posuere, dui massa gravida enim, a vehicula erat quam et risus. Etiam scelerisque. Vivamus et ipsum. Nulla facilisi. Nullam elementum fringilla enim. Nulla facilisi. Praesent sem arcu, porttitor ac, cursus sed, fringilla vitae, nisi. Nam sollicitudin eros id ante. Nunc nisi augue, lobortis a, rhoncus quis, gravida nec, tortor. Sed sollicitudin. Nulla facilisi.</p>
+
+			<ul>
+				<li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>	
+				<li>Praesent scelerisque commodo massa.</li>
+				<li>Ut volutpat. Maecenas luctus augue quis velit. Nulla tincidunt pede in erat.</li>
+			</ul>
+			
+			<p> Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Praesent scelerisque commodo massa. Ut volutpat. Maecenas luctus augue quis velit. Nulla tincidunt pede in erat. Vivamus tellus. Maecenas lacinia, arcu sed scelerisque posuere, dui massa gravida enim, a vehicula erat quam et risus. Etiam scelerisque. Vivamus et ipsum. Nulla facilisi. Nullam elementum fringilla enim. Nulla facilisi. Praesent sem arcu, porttitor ac, cursus sed, fringilla vitae, nisi. Nam sollicitudin eros id ante. Nunc nisi augue, lobortis a, rhoncus quis, gravida nec, tortor. Sed sollicitudin. Nulla facilisi.</p>
+
+			Other actions:
+			<ul>
+				<li>wipe out current playlist</li>
+				<li>kill all slides</li>
+			</ul>
+
+		</div><!-- / content -->		
+	</div><!-- / container -->
+
