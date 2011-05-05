@@ -27,8 +27,7 @@ class SlidesController < ApplicationController
     @slide = Slide.new
 
     respond_to do |format|
-      format.html { render :layout => false }# new.html.erb
-      format.js { render :layout => false }# new.js.erb
+      format.html { render :layout => false }
       format.xml  { render :xml => @slide }
     end
   end

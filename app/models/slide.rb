@@ -3,7 +3,7 @@ class Slide < ActiveRecord::Base
   
   def update_last_touched
     # gets updated on instance creation of whenever the slide is moved on or off the playlist
-    self.last_touched = Date.now
+    self.last_touched = DateTime.now
   end
 end
 

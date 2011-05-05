@@ -1,3 +1,22 @@
-
-
 <%= render 'form' %>
+
+<script type="text/javascript">
+	$('#submit').click(function(){
+		$.ajax({
+			type: "POST",
+			url: '/slides',
+			data: { slide : {
+					header: $('#slide_header').val(),
+					title: $('#slide_title').val(),
+					subtitle: $('#slide_subtitle').val(),
+					body: $('#slide_body').val(),
+					footer: $('#slide_footer').val()
+					}
+				},
+			success: function( response ){
+				$('#slide_div').html('Saved. <a href="" id="create_another">create another?</a> or <a href="" onclick="$( \'#close\'.click() )">no, finished for now</a>')
+			}
+		});
+		return false;
+	});
+</script>

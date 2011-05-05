@@ -27,18 +27,20 @@ $(document).ready(function() {
 	init();
 	
 	function init() {
-		//new_slide();
-		edit_slide(1);
+		// start with a empty playlist each time this page loads but grab it from the SESSION on the server if possible
+		_playlist = <% if @playlist.nil? %>[]<% else %><%= @playlist %><% end %>;
 		
+		new_slide();
+		//edit_slide(1);		
 	}
 
 	function new_slide() {
+		//alert("hi")
 		$.get(
 		'/slides/new',
 		function( response ){
 			$('#slide_div').html(response)
-		})
-		
+		})		
 	}
 	
 	function edit_slide(id) {
@@ -46,9 +48,25 @@ $(document).ready(function() {
 		'/slides/'+id+'/edit',
 		function( response ){
 			$('#slide_div').html(response)
-		})		
-		
+		})				
 	}
+	
+	function update_playlist(){
+		// I found this on StackOverflow
+		_playlist = []
+		$('#sortable2').children('li').each(function(idx, elm) {
+		  _playlist.push($(elm).attr('data-id'))
+		});
+		alert( "the current playlist is " + _playlist );
+		//$.get('ajax.php', {action: 'updateOrder', 'order[]': order});						
+	}
+
+	$("#create_another").live('click', function(){
+		// this is used by any element that needs to create a new slide without reloading page
+		new_slide();
+		return false; // don't return, thus bypassing following any HREF
+  	});
+ 
 });
 
 </script>
@@ -67,10 +85,10 @@ $(document).ready(function() {
 
 		<ul class="login">
 	    	<li class="left">&nbsp;</li>
-	        <li>Hello Guest! Cato is a pretty cat</li>
+	        <li>Click to add a slide:</li>
 			<li class="sep">|</li>
 			<li id="toggle">
-				<a id="open" class="open" href="#">Log In | Register</a>
+				<a id="open" class="open" href="#">Open Panel</a>
 				<a id="close" style="display: none;" class="close" href="#">Close Panel</a>			
 			</li>
 
@@ -81,28 +99,91 @@ $(document).ready(function() {
 </div> <!--panel -->
 
     <div id="container">
-		<div id="content" style="padding-top:100px;">
+		<div id="content" style="padding-top:30px;">
 			<h1>Blue Moon Swing Slideshow Control Panel</h1>
 
+				<style>
+				#sortable1, #sortable2, #sortable3 { list-style-type: none; margin: 0; padding: 0; float: left; margin-right: 10px; width: 250px; }
+				#sortable1 li, #sortable2 li, #sortable3 li { margin: 0 5px 5px 5px; padding: 5px; font-size: 1.2em; width: 220px; }
+				// stuff added by JCQ
+				#sortable1, #sortable2 {margin: 0;}
+				#sortable3 {margin: 0 0 0 75px;}
+				#all_slides, #current_playlist, #trashcan { text-transform: uppercase;}
+				#sortable1 li { background: #666; }
+				#sortable2 li { background: #5c8500; //dark green}
+				#sortable3 li { background: #cc1100; //blood orange}
+				</style>
+				<script>
+				$(function() {
+					$( "#sortable1, #sortable2, #sortable3" ).sortable({
+						connectWith: ".connectedSortable"
+					}).disableSelection();
+					
+					
+					$( "#sortable2" ).bind( "sortupdate", function(event, ui){
+						//alert( "I just moved item with id " + ui.item.attr('data-id') );
+
+						// tried to get the following to work by called update_playlist but JS couldn't find that function...scope issue?
+						
+						// I found this on StackOverflow
+						_playlist = []
+						$('#sortable2').children('li').each(function(idx, elm) {
+						  _playlist.push($(elm).attr('data-id'))
+						});
+						//alert( "the current playlist is " + _playlist );
+						//$.get('ajax.php', {action: 'updateOrder', 'order[]': order});	
+						$.ajax({
+							type: "POST",
+							url: '/playlists/update',
+							data: { playlist : _playlist },
+							success: function( response ){
+								alert("I updated the playlist in the session on the server");
+							}
+						});						
+					});
+				});
+				
+
+				</script>
+
+
+				<div class="demo">
+
+				<ul id="sortable1" class="connectedSortable"><span id="all_slides">all slides</span>
+					<% @slides.each do |slide| %>
+					<li class="ui-state-default" data-id="<%=slide.id%>"><%= slide.title %></li>
+					<% end %>
+				</ul>
+
+				<ul id="sortable2" class="connectedSortable"><span id="current_playlist">current playlist</span>
+					<% @playlist_slides.each do |slide| %>
+					<li class="ui-state-highlight" data-id="<%=slide.id%>"><%= slide.title %></li>
+					<% end %>
+				</ul>
+
+				<ul id="sortable3" class="connectedSortable"><span id="trashcan">trashcan</span>
+
+				</ul>
+
+				</div>
+
+				<br clear="all"/>
+There are <%= @slides.count %> slides in the DB
+<!--
 			<h2>I am a H2 header</h2>	
 			<p>Lorem ipsum dolor sit amet, <a href="">consectetuer adipiscing</a> elit. Praesent scelerisque commodo massa. Ut volutpat. Maecenas luctus augue quis velit. Nulla tincidunt pede in erat.</p>
 			
 			<p class="highlight">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Praesent <a href="">scelerisque commodo massa</a>. Ut volutpat. Maecenas luctus augue quis velit. Nulla tincidunt pede in erat.</p>
 			
-			<p> Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Praesent scelerisque commodo massa. Ut volutpat. Maecenas luctus augue quis velit. Nulla tincidunt pede in erat. Vivamus tellus. Maecenas lacinia, arcu sed scelerisque posuere, dui massa gravida enim, a vehicula erat quam et risus. Etiam scelerisque. Vivamus et ipsum. Nulla facilisi. Nullam elementum fringilla enim. Nulla facilisi. Praesent sem arcu, porttitor ac, cursus sed, fringilla vitae, nisi. Nam sollicitudin eros id ante. Nunc nisi augue, lobortis a, rhoncus quis, gravida nec, tortor. Sed sollicitudin. Nulla facilisi.</p>
+-->
 
-			<ul>
-				<li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>	
-				<li>Praesent scelerisque commodo massa.</li>
-				<li>Ut volutpat. Maecenas luctus augue quis velit. Nulla tincidunt pede in erat.</li>
-			</ul>
-			
-			<p> Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Praesent scelerisque commodo massa. Ut volutpat. Maecenas luctus augue quis velit. Nulla tincidunt pede in erat. Vivamus tellus. Maecenas lacinia, arcu sed scelerisque posuere, dui massa gravida enim, a vehicula erat quam et risus. Etiam scelerisque. Vivamus et ipsum. Nulla facilisi. Nullam elementum fringilla enim. Nulla facilisi. Praesent sem arcu, porttitor ac, cursus sed, fringilla vitae, nisi. Nam sollicitudin eros id ante. Nunc nisi augue, lobortis a, rhoncus quis, gravida nec, tortor. Sed sollicitudin. Nulla facilisi.</p>
-
-			Other actions:
+			<h2>Other actions:</h2>
 			<ul>
 				<li>wipe out current playlist</li>
-				<li>kill all slides</li>
+				<li>kill all non-playlist slides</li>
+				<li>kill all non-playlist slides older than 30 min</li>
+				<li>kill slides in trash</li>
+				<li>open slideshow in a stripped out browser</li>
 			</ul>
 
 		</div><!-- / content -->		

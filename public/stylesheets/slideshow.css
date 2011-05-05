@@ -1,24 +1,29 @@
 body {
 	font-family: Verdana;
 	color: white;
-
 	background: #000000;
 }
 
-#header {
+#header, #footer {
 	font-family: "Lucida Grande", Tahoma;
-	font-size: 2.8em;
 	font-weight: lighter;
 	font-variant: normal;
-	text-transform: uppercase;
 	color: #fd869a;
 	padding-top: 100px;
-	padding-bottom: 25px;
-	text-align: left !important;
-	letter-spacing: 0.15em;
-
 	vertical-align: middle !important;
 	height: 75px;
+}
+
+#header {
+	font-size: 2.8em;
+	text-transform: uppercase;
+	text-align: left !important;
+	padding-bottom: 25px;
+}
+
+#footer {
+	font-size: 1.5em;
+	text-align: center !important;
 }
 
 #title {
@@ -42,7 +47,7 @@ body {
 
 }
 
-#footer {
+#body {
 	font-size: 3.2em;
 	font-family: times, Times New Roman, times-roman, georgia, serif;
 	font-style: italic;

@@ -4,6 +4,8 @@ BlueMoonSlideshow::Application.routes.draw do
   
   match 'slideshow' => 'pages#slideshow'
 
+  post 'playlists/update'
+  
   root :to => "pages#controlpanel"
   
   # The priority is based upon order of creation:

@@ -1,9 +1,9 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   
-  private
   
-    def playlist      
+   
+    def current_playlist      
       session[:playlist] ||= Array.new
     end
     
