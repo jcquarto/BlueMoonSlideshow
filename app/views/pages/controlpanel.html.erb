@@ -28,7 +28,7 @@ $(document).ready(function() {
 	
 	function init() {
 		// start with a empty playlist each time this page loads but grab it from the SESSION on the server if possible
-		_playlist = <% if @playlist.nil? %>[]<% else %><%= @playlist %><% end %>;
+		_playlist = <% if @playlist.nil? %>[]<% else %><%= raw @playlist %><% end %>;
 		
 		new_slide();
 		//edit_slide(1);		
@@ -54,7 +54,7 @@ $(document).ready(function() {
 	function update_playlist(){
 		// I found this on StackOverflow
 		_playlist = []
-		$('#sortable2').children('li').each(function(idx, elm) {
+		$('#current_playlist').children('li').each(function(idx, elm) {
 		  _playlist.push($(elm).attr('data-id'))
 		});
 		alert( "the current playlist is " + _playlist );
@@ -100,74 +100,81 @@ $(document).ready(function() {
 
     <div id="container">
 		<div id="content" style="padding-top:30px;">
-			<h1>Blue Moon Swing Slideshow Control Panel</h1>
 
 				<style>
-				#sortable1, #sortable2, #sortable3 { list-style-type: none; margin: 0; padding: 0; float: left; margin-right: 10px; width: 250px; }
-				#sortable1 li, #sortable2 li, #sortable3 li { margin: 0 5px 5px 5px; padding: 5px; font-size: 1.2em; width: 220px; }
-				// stuff added by JCQ
-				#sortable1, #sortable2 {margin: 0;}
-				#sortable3 {margin: 0 0 0 75px;}
-				#all_slides, #current_playlist, #trashcan { text-transform: uppercase;}
-				#sortable1 li { background: #666; }
-				#sortable2 li { background: #5c8500; //dark green}
-				#sortable3 li { background: #cc1100; //blood orange}
+				#all_slides, #current_playlist, #trashcan { list-style-type: none; margin: 0; padding: 0; margin-right: 10px;  background-color: #444444; min-height: 50px; min-width: 250px;}
+				#all_slides li, #current_playlist li, #trashcan li { margin: 0 5px 5px 5px; padding: 5px; font-size: 1.2em; }
+				#div_trashcan {margin-left: 75px;}
+				#div_all_slides, #div_current_playlist, #div_trashcan { float: left;}
+				#div_all_slides span, #div_current_playlist span, #div_trashcan span { text-transform: uppercase;}
+				#div_all_slides span { color: #999999; }
+				#div_current_playlist span { color: #5c8500; //dark green }
+				#div_trashcan span { color: #cc1100; //blood orange }
+				#all_slides li { background: #666; }
+				#current_playlist li { background: #5c8500; //dark green}
+				#trashcan li { background: #cc1100; //blood orange}
 				</style>
 				<script>
 				$(function() {
-					$( "#sortable1, #sortable2, #sortable3" ).sortable({
+					$( "#all_slides, #current_playlist, #trashcan" ).sortable({
 						connectWith: ".connectedSortable"
 					}).disableSelection();
 					
 					
-					$( "#sortable2" ).bind( "sortupdate", function(event, ui){
+					$( "#current_playlist" ).bind( "sortupdate", function(event, ui){
 						//alert( "I just moved item with id " + ui.item.attr('data-id') );
 
 						// tried to get the following to work by called update_playlist but JS couldn't find that function...scope issue?
 						
 						// I found this on StackOverflow
 						_playlist = []
-						$('#sortable2').children('li').each(function(idx, elm) {
+						$('#current_playlist').children('li').each(function(idx, elm) {
 						  _playlist.push($(elm).attr('data-id'))
 						});
 						//alert( "the current playlist is " + _playlist );
 						//$.get('ajax.php', {action: 'updateOrder', 'order[]': order});	
+						alert( $('#current_playlist').sortable('serialize') )
 						$.ajax({
 							type: "POST",
-							url: '/playlists/update',
+							url: '/playlist/update',
 							data: { playlist : _playlist },
 							success: function( response ){
-								alert("I updated the playlist in the session on the server");
+								//alert("I updated the playlist in the session on the server");
 							}
 						});						
 					});
 				});
 				
-
 				</script>
 
 
 				<div class="demo">
 
-				<ul id="sortable1" class="connectedSortable"><span id="all_slides">all slides</span>
+				<div id="div_all_slides"><span>all slides</span>
+				<ul id="all_slides" class="connectedSortable">
 					<% @slides.each do |slide| %>
 					<li class="ui-state-default" data-id="<%=slide.id%>"><%= slide.title %></li>
 					<% end %>
 				</ul>
+				</div>
 
-				<ul id="sortable2" class="connectedSortable"><span id="current_playlist">current playlist</span>
+				<div id="div_current_playlist"><span>current playlist</span>
+				<ul id="current_playlist" class="connectedSortable">
 					<% @playlist_slides.each do |slide| %>
 					<li class="ui-state-highlight" data-id="<%=slide.id%>"><%= slide.title %></li>
 					<% end %>
 				</ul>
-
-				<ul id="sortable3" class="connectedSortable"><span id="trashcan">trashcan</span>
+				</div>
+				
+				<div id="div_trashcan"><span>trashcan</span>				
+				<ul id="trashcan" class="connectedSortable">
 
 				</ul>
-
+				</div>
+				
 				</div>
 
-				<br clear="all"/>
+				<br clear="all"/><br clear="all"/>
 There are <%= @slides.count %> slides in the DB
 <!--
 			<h2>I am a H2 header</h2>	

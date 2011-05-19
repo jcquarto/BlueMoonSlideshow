@@ -5,6 +5,20 @@
   <%= stylesheet_link_tag "styles", "slideshow" %>
   <%= javascript_include_tag :defaults %>
   <%= csrf_meta_tag %>
+
+	<script language=javascript>
+	var int=self.setInterval("update()",30*1000);
+	function update()
+	  {
+		$.get(
+		'/playlist/next',
+		function( response ){
+			$('#footer').html('the current slide is ' + response)
+		})				
+			
+
+	  }
+	</script>
 </head>
 <body>
 	<div id="header">coming up:</div>

@@ -4,7 +4,8 @@ BlueMoonSlideshow::Application.routes.draw do
   
   match 'slideshow' => 'pages#slideshow'
 
-  post 'playlists/update'
+  post 'playlist/update'
+  get 'playlist/next'
   
   root :to => "pages#controlpanel"
   
