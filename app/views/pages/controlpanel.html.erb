@@ -133,7 +133,7 @@ $(document).ready(function() {
 						});
 						//alert( "the current playlist is " + _playlist );
 						//$.get('ajax.php', {action: 'updateOrder', 'order[]': order});	
-						alert( $('#current_playlist').sortable('serialize') )
+						//alert( 'q' + $('#current_playlist').sortable('serialize') +'q' )
 						$.ajax({
 							type: "POST",
 							url: '/playlist/update',

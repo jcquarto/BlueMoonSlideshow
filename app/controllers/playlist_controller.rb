@@ -15,8 +15,17 @@ class PlaylistController < ApplicationController
       current = session[:playlist].index(session[:slide_id])
       session[:slide_id] = session[:playlist][current+1]
     end
+    #logger.info('MOMMA: ' + session[:slide_id] + "qqq")
+    #logger.info(session[:slide_id].length)
+    begin
+      @slide = Slide.find( session[:slide_id] )
+    rescue
+      @slide = nil
+      session[:slide_id] = nil
+    end
     respond_to do |format|
-      format.html { render :layout => false}
+      #format.html { render :layout => false}
+      format.json { render :json => @slide }
     end
   end
   

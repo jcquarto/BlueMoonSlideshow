@@ -1,10 +1,20 @@
 class Slide < ActiveRecord::Base
-  before_save :update_last_touched
+  before_save :update_last_touched, :check_duration
+  
+  validates_numericality_of :duration, :only_integer => true
+  validates_inclusion_of :duration, :in => 0..999
+  
   
   def update_last_touched
     # gets updated on instance creation of whenever the slide is moved on or off the playlist
     self.last_touched = DateTime.now
   end
+  
+  def check_duration
+    # if no durations is specified, it sets it to 30 (seconds)
+    self.duration = 30 if self.nil?
+  end
+  
 end
 
 # == Schema Information

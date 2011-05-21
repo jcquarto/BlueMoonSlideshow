@@ -7,25 +7,43 @@
   <%= csrf_meta_tag %>
 
 	<script language=javascript>
-	var int=self.setInterval("update()",30*1000);
-	function update()
+	function update_slide()
 	  {
 		$.get(
-		'/playlist/next',
+		'/playlist/next.json',
 		function( response ){
-			$('#footer').html('the current slide is ' + response)
+			if (response == null) {
+				setTimeout(update_slide, 10*1000);
+				$('#header').html('');
+				$('#title').html('');
+				$('#subtitle').html('');
+				$('#body').html('');
+				$('#footer').html('');
+			} else {
+				var slide = response.slide;
+				var duration = slide.duration;
+				$('#header').html(slide.header);
+				$('#title').html(slide.title);
+				$('#subtitle').html(slide.subtitle);
+				$('#body').html(slide.body);
+				$('#footer').html(slide.footer);
+				setTimeout(update_slide, duration*1000)
+			}
 		})				
-			
-
 	  }
+
+
+	$(document).ready(function() {
+		update_slide();
+	});
 	</script>
 </head>
 <body>
-	<div id="header">coming up:</div>
-	<div id="title">"Sometimes you're the windshield, sometimes you're the bug"</div>
-	<div id="subtitle">Cato McQ</div>
-	<div id="body">two step, don't forget to go quick, quick, slow, slow and to hold the second sow otherwise you will be too early on all your ensuing steps</div>
-	<div id="footer">see you next month! Thursday, June 2nd</div>
+	<div id="header"></div>
+	<div id="title"></div>
+	<div id="subtitle"></div>
+	<div id="body"></div>
+	<div id="footer"></div>
 <%= yield %>
 
 <div id="banner" align="center">
