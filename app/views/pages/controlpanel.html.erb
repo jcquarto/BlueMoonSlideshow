@@ -23,12 +23,12 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-
+                      
 	init();
 	
 	function init() {
 		// start with a empty playlist each time this page loads but grab it from the SESSION on the server if possible
-		_playlist = <% if @playlist.nil? %>[]<% else %><%= raw @playlist %><% end %>;
+		_playlist = <% if @playlist.nil? || @playlist.empty? %>[]<% else %><%= raw @playlist %><% end %>;
 		
 		new_slide();
 		//edit_slide(1);		
@@ -61,11 +61,14 @@ $(document).ready(function() {
 		//$.get('ajax.php', {action: 'updateOrder', 'order[]': order});						
 	}
 
+
 	$("#create_another").live('click', function(){
 		// this is used by any element that needs to create a new slide without reloading page
 		new_slide();
 		return false; // don't return, thus bypassing following any HREF
   	});
+
+
  
 });
 
@@ -143,6 +146,8 @@ $(document).ready(function() {
 							}
 						});						
 					});
+
+
 				});
 				
 				</script>
@@ -187,12 +192,35 @@ There are <%= @slides.count %> slides in the DB
 			<h2>Other actions:</h2>
 			<ul>
 				<li>wipe out current playlist</li>
+				<li><a href="#" onClick="empty_trashcan(); return false">kill slides in trash</a></li>
 				<li>kill all non-playlist slides</li>
 				<li>kill all non-playlist slides older than 30 min</li>
-				<li>kill slides in trash</li>
-				<li>open slideshow in a stripped out browser</li>
+				<li><a href="#" onClick="popupwin('http://localhost:3000/slideshow','slideshow','1200','800','0');">open a pop-up window in a chromeless browser</a></li>
 			</ul>
 
 		</div><!-- / content -->		
 	</div><!-- / container -->
 
+<script type="text/javascript">
+var openwin;
+function popupwin(url,myname,w,h,s)	{
+	settings='height='+h+',width='+w+',scrollbars='+s+',toolbar=0,location=0,status=0,menubar=0, resizable=1,dependent=0';
+	openwin=window.open(url,myname,settings);
+}
+</script>
+
+<script type="text/javascript">
+function empty_trashcan() {
+	$('#trashcan').children('li').each(function(idx, elm) {
+		var id = $(elm).attr('data-id');
+		$.ajax({
+			type: "DELETE",
+			url: '/slides/' + id,
+			success: function( response ){
+				//alert("I deleted item " + id + " from the trash");
+				$(elm).remove();
+			}
+		});	
+	});	
+}
+</script>

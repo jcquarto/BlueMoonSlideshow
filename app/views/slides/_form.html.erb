@@ -18,14 +18,32 @@
   <div>
     <%= f.label :header, :class => 'grey' %>
     <%= f.text_field :header, :class => 'field' %>
+	<br/>
+    <span class="grey">suggestions:</span>
+    <%= select_tag "header_suggestions", options_for_select([ "pick...", "coming up", "Blue Moon news", "Did you know?", "---------", "west coast", "TwoStep", "East Coast", "Shag","TripleTwo","Waltz", "Tango", "Cha", "Salsa" ]) %>
   </div>
-  <div><br/><br/><br/></div>
+  <div><br/><br/></div>
+<!--
   <div>
     <%= f.label :footer, :class => 'grey' %>
     <%= f.text_field :footer, :class => 'field' %>
+    <br/>
+	<span class="grey">suggestions:</span>
+    <%= select_tag "footer_suggestions", options_for_select([ "pick...", "coming up", "Blue Moon news", "Did you know?", "---------", "WCS", "TwoStep", "East Coast", "Shag","TripleTwo","Waltz", "Tango", "Cha", "Salsa" ]) %>
+  </div>
+-->
   </div>
 </div>
-
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#header_suggestions').change(function(){
+			$('#slide_header').val( $(this).val() );
+		});
+		$('#footer_suggestions').change(function(){
+			$('#slide_footer').val( $(this).val() );
+		});
+	});
+</script>
 <div class="left">
   <div>
     <%= f.label :title, :class => 'grey' %>

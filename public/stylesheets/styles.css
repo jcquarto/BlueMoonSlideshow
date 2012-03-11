@@ -1,4 +1,4 @@
-.BMS {font-size: 18px; color: #999999;}
+#banner .BMS {font-size: 18px; color: #999999;}
 #banner {
 	position: absolute;
 	top:0px;
@@ -7,4 +7,14 @@
 
 	width: 200px;
 	height: 175px;
+}
+
+#bigbanner .BMS {font-size: 86px; color: #eeeeee;}
+#bigbanner {
+	position: absolute;
+	top: 0px;
+	width: 100%;
+	text-align:middle;
+	margin-left: auto;
+	margin-right: auto;
 }

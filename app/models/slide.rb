@@ -11,8 +11,8 @@ class Slide < ActiveRecord::Base
   end
   
   def check_duration
-    # if no durations is specified, it sets it to 30 (seconds)
-    self.duration = 30 if self.nil?
+    # if no durations is specified, it sets it to 20 (seconds)
+    self.duration = 20 if self.nil?
   end
   
 end

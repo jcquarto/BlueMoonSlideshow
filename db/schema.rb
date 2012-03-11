@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110519181532) do
+ActiveRecord::Schema.define(:version => 20120310224431) do
 
   create_table "slides", :force => true do |t|
     t.string   "header"
@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(:version => 20110519181532) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "body"
-    t.integer  "duration",     :default => 30
+    t.integer  "duration",     :default => 20
   end
 
 end

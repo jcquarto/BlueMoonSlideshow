@@ -14,12 +14,17 @@
 		function( response ){
 			if (response == null) {
 				setTimeout(update_slide, 10*1000);
+				$('#banner').hide();
 				$('#header').html('');
 				$('#title').html('');
 				$('#subtitle').html('');
 				$('#body').html('');
 				$('#footer').html('');
+				
+				$('#bigbanner').show();
 			} else {
+				$('#bigbanner').hide();
+				$('#banner').show();
 				var slide = response.slide;
 				var duration = slide.duration;
 				$('#header').html(slide.header);
@@ -50,6 +55,9 @@
 	<span class="BMS">Blue Moon Swing<br/></span>
 	<%= image_tag "blue-moon-wolf-medium.jpg" %>
 </div>
-
+<div id="bigbanner" align="center">
+	<%= image_tag "blue-moon-wolf-full.jpg", :width => "55%" %>
+	<span class="BMS"><br/>Blue Moon Swing<br/></span>
+</div>
 </body>
 </html>

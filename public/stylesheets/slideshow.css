@@ -24,6 +24,9 @@ body {
 #footer {
 	font-size: 1.5em;
 	text-align: center !important;
+	position: absolute;
+	bottom: 0;
+	right: 50%;
 }
 
 #title {
